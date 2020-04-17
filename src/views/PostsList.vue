@@ -1,27 +1,31 @@
 <template>
   <section>
-    <b-table
-      :data="data"
-      :loading="loading"
-      paginated
-      backend-pagination
-      :total="total"
-      :per-page="perPage"
-      @page-change="onPageChange"
-      aria-next-label="Next page"
-      aria-previous-label="Previous page"
-      aria-page-label="Page"
-      aria-current-label="Current page"
-      backend-sorting
-      :default-sort-direction="defaultSortOrder"
-      :default-sort="[sortField, sortOrder]"
-    >
-      <template slot-scope="props">
-        <b-table-column field="cards">
-          <Card :data="props.row" />
-        </b-table-column>
-      </template>
-    </b-table>
+    <div class="columns is-mobile is-centered">
+      <div class="column is-half">
+        <b-table
+          :data="data"
+          :loading="loading"
+          paginated
+          backend-pagination
+          :total="total"
+          :per-page="perPage"
+          @page-change="onPageChange"
+          aria-next-label="Next page"
+          aria-previous-label="Previous page"
+          aria-page-label="Page"
+          aria-current-label="Current page"
+          backend-sorting
+          :default-sort-direction="defaultSortOrder"
+          :default-sort="[sortField, sortOrder]"
+        >
+          <template slot-scope="props">
+            <b-table-column field="cards">
+              <Card :data="props.row" />
+            </b-table-column>
+          </template>
+        </b-table>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -56,8 +60,9 @@ export default {
             currentTotal = this.perPage * 10;
           }
           this.total = currentTotal;
-          data.forEach(item => {
-            this.data.push(item);
+          data.forEach(post => {
+            this.data.push(post);
+            this.$store.commit("setClaps", { claps: post.claps, id: post.id });
           });
           this.loading = false;
         })
@@ -79,7 +84,6 @@ export default {
 
   mounted() {
     this.loadAsyncData();
-    console.log(this)
   },
 
   components: {

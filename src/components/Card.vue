@@ -2,22 +2,37 @@
   <div class="card">
     <div class="card-content">
       <div class="content">
-        {{ data.title }}
-        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        <div class="card-header">
+          <p class="card-header-title">{{ data.title }}</p>
+        </div>
+        <div class>{{ data.description }}</div>
+        <div class>
+          <time
+            datetime="this.data.createdAt"
+          >Created at: {{new Date(data.createdAt).toUTCString()}}</time>
+        </div>
       </div>
     </div>
     <footer class="card-footer">
-      <a href="#" class="card-footer-item">Clap</a>
-      <a href="#" class="card-footer-item">Edit</a>
-      <a href="#" class="card-footer-item">Delete</a>
+      <span class="card-footer-item">{{clapsCounter}}</span>
+      <b-button
+        v-if="rightsCheck() === 'reader'"
+        tag="button"
+        id="3"
+        v-on:click.prevent="incrementClaps"
+        class="card-footer-item is-success"
+        outlined
+      >
+        <i id="1" class="fas fa-sign-language"></i>
+      </b-button>
+      <a v-if="rightsCheck() === true" href="#" class="card-footer-item">Edit</a>
+      <a v-if="rightsCheck() === true" href="#" class="card-footer-item">Delete</a>
     </footer>
   </div>
 </template>
 
 
 <script>
-
-
 export default {
   props: {
     data: {
@@ -26,8 +41,30 @@ export default {
     },
     id: Number
   },
-  created() {
-    console.log(this)
+  created() {},
+  methods: {
+    rightsCheck() {
+      if (window.sessionStorage.getItem("role") === "writer") {
+        return true;
+      }
+      if (window.sessionStorage.getItem("role") === "reader") return "reader";
+    },
+    incrementClaps(event) {
+      this.$store.commit("incrementClaps", 1);
+    }
+  },
+  computed: {
+    clapsCounter() {
+      console.log(this.$store.getters.clapsDone)
+      return this.$store.getters.clapsDone
+    }
   }
 };
 </script>  
+
+<style scoped>
+.button {
+  font-size: 1.3rem;
+  height: 3em;
+}
+</style>
