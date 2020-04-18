@@ -14,7 +14,7 @@
       </div>
     </div>
     <footer class="card-footer">
-      <span class="card-footer-item">{{clapsCounter}}</span>
+      <span v-if="rightsCheck() === 'reader'" class="card-footer-item">{{clapsCounter}}</span>
       <b-button
         v-if="rightsCheck() === 'reader'"
         tag="button"
@@ -33,6 +33,8 @@
 
 
 <script>
+import { checkRights } from "@/services/AutorizationService";
+
 export default {
   props: {
     data: {
@@ -44,10 +46,7 @@ export default {
   created() {},
   methods: {
     rightsCheck() {
-      if (window.sessionStorage.getItem("role") === "writer") {
-        return true;
-      }
-      if (window.sessionStorage.getItem("role") === "reader") return "reader";
+      checkRights();
     },
     incrementClaps(event) {
       this.$store.commit("incrementClaps", 1);
@@ -55,8 +54,8 @@ export default {
   },
   computed: {
     clapsCounter() {
-      console.log(this.$store.getters.clapsDone)
-      return this.$store.getters.clapsDone
+      console.log(this.$store.getters.clapsDone);
+      return this.$store.getters.clapsDone;
     }
   }
 };

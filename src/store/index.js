@@ -22,7 +22,14 @@ export default new Vuex.Store({
       state.posts[clap] += 1
     }
   },
-  actions: {},
+  actions: {
+    rightsCheck() {
+      if (window.sessionStorage.getItem("role") === "writer") {
+        return true;
+      }
+      if (window.sessionStorage.getItem("role") === "reader") return "reader";
+    }
+  },
   modules: {},
   getters: {
     clapsDone (state) {

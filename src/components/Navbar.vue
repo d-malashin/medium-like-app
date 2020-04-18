@@ -24,7 +24,7 @@
           <b-button disabled class="button">
             <strong>Sign up</strong>
           </b-button>
-          <b-button tag="router-link" :to="{ path: '/login' }" class="button is-success">Log in</b-button>
+          <b-button v-if="rightsCheck() === 'reader'" tag="router-link" :to="{ path: '/login' }" class="button is-success">Log in</b-button>
         </div>
       </b-navbar-item>
     </template>
@@ -32,8 +32,15 @@
 </template>
 
 <script>
+import { checkRights } from '@/services/AutorizationService'
+
 export default {
-    name: 'Navbar'
+    name: 'Navbar',
+    methods: {
+        rightsCheck() {
+            checkRights()
+        }
+    }
 };
 </script>
 
