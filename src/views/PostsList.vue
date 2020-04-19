@@ -56,8 +56,9 @@ export default {
         .then(({ data }) => {
           this.data = [];
           let currentTotal = data.length;
-          if (data.length / this.perPage > 10) {
-            currentTotal = this.perPage * 10;
+          let postsOnPage = 10;
+          if (data.length / this.perPage > postsOnPage) {
+            currentTotal = this.perPage * postsOnPage;
           }
           this.total = currentTotal;
           data.forEach(post => {

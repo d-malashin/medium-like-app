@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "json-server-auth ./src/store/db.json & vue-cli-service serve",
     "watch": "json-server-auth ./src/store/db.json",
     "build": "vue-cli-service build"
   },

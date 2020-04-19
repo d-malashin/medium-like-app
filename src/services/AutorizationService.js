@@ -1,6 +1,19 @@
-export const checkRights = () => {
+class Autorization {
+  constructor() {}
+    checkRights() {
     if (window.sessionStorage.getItem("role") === "writer") {
+      console.log('writer')
       return true;
     }
-    if (window.sessionStorage.getItem("role") === "reader") return "reader";
+    else if (window.sessionStorage.getItem("role") === "reader") {
+      console.log('reader')
+
+      return "reader"
+    } else {
+      console.log('user')
+      return 'user'
+    }
   }
+}
+
+export default new Autorization()

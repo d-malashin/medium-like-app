@@ -33,7 +33,7 @@
 
 
 <script>
-import { checkRights } from "@/services/AutorizationService";
+import Auth from "@/services/AutorizationService";
 
 export default {
   props: {
@@ -45,9 +45,7 @@ export default {
   },
   created() {},
   methods: {
-    rightsCheck() {
-      checkRights();
-    },
+    rightsCheck: Auth.checkRights,
     incrementClaps(event) {
       this.$store.commit("incrementClaps", 1);
     }

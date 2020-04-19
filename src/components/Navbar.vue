@@ -21,10 +21,25 @@
           >
             <strong>Create post</strong>
           </b-button>
-          <b-button disabled class="button">
+          <b-button disabled class="button" v-if="rightsCheck() === 'user'"
+            tag="router-link"
+            :to="{ path: '/login' }">
             <strong>Sign up</strong>
           </b-button>
-          <b-button v-if="rightsCheck() === 'reader'" tag="router-link" :to="{ path: '/login' }" class="button is-success">Log in</b-button>
+          <b-button
+            v-if="rightsCheck() === 'user'"
+            tag="router-link"
+            :to="{ path: '/login' }"
+            class="button is-success"
+            >Log in</b-button
+          >
+          <b-button
+            v-if="rightsCheck() !== 'user'"
+            tag="router-link"
+            :to="{ path: '/logout' }"
+            class="button is-danger"
+            >Log out</b-button
+          >
         </div>
       </b-navbar-item>
     </template>
@@ -32,17 +47,14 @@
 </template>
 
 <script>
-import { checkRights } from '@/services/AutorizationService'
+import Auth from "@/services/AutorizationService";
 
 export default {
-    name: 'Navbar',
-    methods: {
-        rightsCheck() {
-            checkRights()
-        }
+  name: "Navbar",
+  methods: {
+    rightsCheck: Auth.checkRights
     }
 };
 </script>
 
-<style>
-</style>
+<style></style>
