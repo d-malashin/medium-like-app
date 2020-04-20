@@ -1,19 +1,16 @@
 class Autorization {
   constructor() {}
-    checkRights() {
+  checkRights() {
     if (window.sessionStorage.getItem("role") === "writer") {
-      console.log('writer')
       return true;
-    }
-    else if (window.sessionStorage.getItem("role") === "reader") {
-      console.log('reader')
-
-      return "reader"
+    } else if (window.sessionStorage.getItem("role") === "reader") {
+      return "reader";
     } else {
-      console.log('user')
-      return 'user'
+      return "user";
     }
   }
+
+  auth() {}
 }
 
-export default new Autorization()
+export default new Autorization();

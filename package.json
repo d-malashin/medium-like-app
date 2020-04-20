@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "json-server-auth ./src/store/db.json & vue-cli-service serve",
+    "serve": "concurrently --kill-others \"json-server-auth ./src/store/db.json\"  \"vue-cli-service serve\"",
     "watch": "json-server-auth ./src/store/db.json",
     "build": "vue-cli-service build"
   },
@@ -24,6 +24,7 @@
     "@vue/cli-plugin-router": "~4.3.0",
     "@vue/cli-plugin-vuex": "~4.3.0",
     "@vue/cli-service": "~4.3.0",
+    "concurrently": "^5.1.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
