@@ -9,7 +9,7 @@
           backend-pagination
           :total="total"
           :per-page="perPage"
-          @page-change="onPageChange"
+          @page-change="renderPosts"
           aria-next-label="Next page"
           aria-previous-label="Previous page"
           aria-page-label="Page"
@@ -35,8 +35,7 @@ import Card from "@/components/Card";
 export default {
   data() {
     return {
-      data: [],
-      total: 0,
+      // total: 0,
       loading: false,
       sortField: "vote_count",
       sortOrder: "desc",
@@ -46,45 +45,25 @@ export default {
     };
   },
   methods: {
-    /*
-     * Load async datapr
-     */
-    loadAsyncData() {
+    renderPosts() {
+      // this.page = page;
       this.loading = true;
-      this.$http
-        .get(`http://localhost:3000/posts`)
-        .then(({ data }) => {
-          this.data = [];
-          let currentTotal = data.length;
-          let postsOnPage = 10;
-          if (data.length / this.perPage > postsOnPage) {
-            currentTotal = this.perPage * postsOnPage;
-          }
-          this.total = currentTotal;
-          data.forEach(post => {
-            this.data.push(post);
-            this.$store.commit("setClaps", { claps: post.claps, id: post.id });
-          });
-          this.loading = false;
-        })
-        .catch(error => {
-          this.data = [];
-          this.total = 0;
-          this.loading = false;
-          throw error;
-        });
+      this.$store.dispatch("getPosts")
+    }
+  },
+
+  computed: {
+    data: function () {
+      this.loading = false
+      return this.$store.getters.postsState
     },
-    /*
-     * Handle page-change event
-     */
-    onPageChange(page) {
-      this.page = page;
-      this.loadAsyncData();
+    total: function () {
+      return this.$store.getters.postsState.length
     }
   },
 
   mounted() {
-    this.loadAsyncData();
+    this.renderPosts();
   },
 
   components: {
