@@ -26,12 +26,6 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    rightsCheck() {
-      if (window.sessionStorage.getItem("role") === "writer") {
-        return true;
-      }
-      if (window.sessionStorage.getItem("role") === "reader") return "reader";
-    },
     getPosts(context) {
       API.getPosts().then((posts) => {
         return context.commit("setPosts", posts)
@@ -42,6 +36,9 @@ export default new Vuex.Store({
   getters: {
     postsState(state) {
       return state.posts;
+    },
+    rightsCheck(state) {
+      return state.user.role
     },
     clapsDone(state) {
       Object.values(state.posts).forEach((element) => {
