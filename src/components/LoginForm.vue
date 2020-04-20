@@ -9,7 +9,7 @@
         <b-input placeholder="Password" type="password" min="6" max="20"></b-input>
       </b-field>
 
-      <b-button tag="input" native-type="submit" class="is-submit" value="Sign in"></b-button>
+      <b-button tag="input" native-type="submit" class="is-primary" value="Sign in"></b-button>
     </form>
   </section>
 </template>

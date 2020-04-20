@@ -21,20 +21,20 @@
           >
             <strong>Create post</strong>
           </b-button>
-          <b-button disabled class="button" v-if="rightsCheck() === 'user'"
+          <b-button disabled class="button" v-if="user === 'user'"
             tag="router-link"
             :to="{ path: '/login' }">
             <strong>Sign up</strong>
           </b-button>
           <b-button
-            v-if="rightsCheck() === 'user'"
+            v-if="user === 'user'"
             tag="router-link"
             :to="{ path: '/login' }"
             class="button is-success"
             >Log in</b-button
           >
           <b-button
-            v-if="rightsCheck() !== 'user'"
+            v-if="user !== 'user'"
             tag="router-link"
             :to="{ path: '/logout' }"
             class="button is-danger"
@@ -47,12 +47,13 @@
 </template>
 
 <script>
-import Auth from "@/services/AutorizationService";
 
 export default {
   name: "Navbar",
-  methods: {
-    rightsCheck: Auth.checkRights
+    computed: {
+      user () {
+        return this.$store.getters.rightsCheck
+      }
     }
 };
 </script>
