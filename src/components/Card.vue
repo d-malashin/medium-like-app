@@ -23,8 +23,18 @@
       >
         <i class="fas fa-sign-language"></i>
       </b-button>
-      <b-button v-if="rightsCheck === 'writer'" @click.prevent="" class="card-footer-item">Edit</b-button>
-      <b-button v-if="rightsCheck === 'writer'" @click.prevent="deletePost" class="card-footer-item">Delete</b-button>
+      <b-button
+        v-if="rightsCheck === 'writer'"
+        tag="router-link"
+        :to="{ path: `/post-editor?key=${this.data.id - 1}` }"
+        class="card-footer-item"
+        is-clipped
+      >Edit</b-button>
+      <b-button
+        v-if="rightsCheck === 'writer'"
+        @click.prevent="deletePost"
+        class="card-footer-item"
+      >Delete</b-button>
     </footer>
   </div>
 </template>

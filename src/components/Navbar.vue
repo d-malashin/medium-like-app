@@ -15,9 +15,9 @@
         <div class="buttons">
           <b-button
             tag="router-link"
-            :to="{ path: '/edit-post' }"
+            :to="{ path: '/post-editor' }"
             class="button is-primary"
-            v-if="userRole === 'writer'"
+            v-if="userRole === 'writer' && this.$route.path === '/'"
           >
             <strong>Create post</strong>
           </b-button>

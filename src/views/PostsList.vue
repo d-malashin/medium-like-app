@@ -9,7 +9,7 @@
           backend-pagination
           :total="total"
           :per-page="perPage"
-          @page-change="renderPosts"
+
           aria-next-label="Next page"
           aria-previous-label="Previous page"
           aria-page-label="Page"
@@ -44,7 +44,7 @@ export default {
     };
   },
   methods: {
-    renderPosts() {}
+    // renderPosts() {          @page-change="renderPosts"}
   },
 
   computed: {
@@ -59,7 +59,7 @@ export default {
 
   mounted() {
     this.loading = true;
-    this.$store.dispatch("getPosts");
+    this.$store.state.posts.length > 0 ? this.loading = false : this.$store.dispatch("getPosts") ;
   },
 
   components: {
