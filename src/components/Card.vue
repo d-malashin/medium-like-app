@@ -14,27 +14,23 @@
       </div>
     </div>
     <footer class="card-footer">
-      <span v-if="rightsCheck() === 'reader'" class="card-footer-item">{{clapsCounter}}</span>
+      <span class="card-footer-item">{{clapsCounter}}</span>
       <b-button
-        v-if="rightsCheck() === 'reader'"
+        v-if="rightsCheck === 'reader'"
         tag="button"
-        id="3"
-        v-on:click.prevent="incrementClaps"
+        @click.prevent="incrementClaps"
         class="card-footer-item is-success"
-        outlined
       >
-        <i id="1" class="fas fa-sign-language"></i>
+        <i class="fas fa-sign-language"></i>
       </b-button>
-      <a v-if="rightsCheck() === true" href="#" class="card-footer-item">Edit</a>
-      <a v-if="rightsCheck() === true" href="#" class="card-footer-item">Delete</a>
+      <b-button v-if="rightsCheck === 'writer'" @click.prevent="" class="card-footer-item">Edit</b-button>
+      <b-button v-if="rightsCheck === 'writer'" @click.prevent="deletePost" class="card-footer-item">Delete</b-button>
     </footer>
   </div>
 </template>
 
 
 <script>
-import Auth from "@/services/AutorizationService";
-
 export default {
   props: {
     data: {
@@ -45,15 +41,19 @@ export default {
   },
   created() {},
   methods: {
-    rightsCheck: Auth.checkRights,
-    incrementClaps(event) {
-      this.$store.commit("incrementClaps", 1);
+    incrementClaps() {
+      this.$store.commit("incrementClaps", this.data.id);
+    },
+    deletePost() {
+      this.$store.commit("deletePost", this.data.id);
     }
   },
   computed: {
-    clapsCounter() {
-      console.log(this.$store.getters.clapsDone);
-      return this.$store.getters.clapsDone;
+    clapsCounter(element) {
+      return this.$store.getters.getClaps(element.data.id).claps;
+    },
+    rightsCheck() {
+      return this.$store.getters.getRights;
     }
   }
 };

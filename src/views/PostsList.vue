@@ -20,7 +20,7 @@
         >
           <template slot-scope="props">
             <b-table-column field="cards">
-              <Card :data="props.row" />
+              <Card :data="props.row" id:="this.data.id"/>
             </b-table-column>
           </template>
         </b-table>
@@ -35,7 +35,6 @@ import Card from "@/components/Card";
 export default {
   data() {
     return {
-      // total: 0,
       loading: false,
       sortField: "vote_count",
       sortOrder: "desc",
@@ -45,25 +44,22 @@ export default {
     };
   },
   methods: {
-    renderPosts() {
-      // this.page = page;
-      this.loading = true;
-      this.$store.dispatch("getPosts")
-    }
+    renderPosts() {}
   },
 
   computed: {
-    data: function () {
-      this.loading = false
-      return this.$store.getters.postsState
+    data: function() {
+      this.loading = false;
+      return this.$store.getters.getPostsState;
     },
-    total: function () {
-      return this.$store.getters.postsState.length
+    total: function() {
+      return this.$store.getters.getPostsState.length;
     }
   },
 
   mounted() {
-    this.renderPosts();
+    this.loading = true;
+    this.$store.dispatch("getPosts");
   },
 
   components: {

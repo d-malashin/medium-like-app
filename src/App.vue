@@ -6,33 +6,14 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar'
+import Navbar from "./components/Navbar";
+import Auth from "@/services/AuthorizationService"
+
 export default {
   created() {
-    this.checkUser()
+      Auth.checkRights()
   },
-  methods: {
-    checkUser() {
-      const role = window.sessionStorage.getItem("role");
-      if (!role) {
-        window.sessionStorage.setItem("role", "user");
-      }
-      switch (role) {
-        case "user": {
-          this.$store.commit("setRole", "user");
-          break;
-        }
-
-        case "reader": {
-          this.$store.commit("setRole", "reader");
-          break;
-        }
-
-        case "writer": {
-          this.$store.commit("setRole", "writer");
-        }
-      }
-    }
+  computed: {
   },
   components: {
     Navbar

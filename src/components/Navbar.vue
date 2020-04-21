@@ -17,26 +17,27 @@
             tag="router-link"
             :to="{ path: '/edit-post' }"
             class="button is-primary"
-            v-if="this.$store.state.user.role === 'writer'"
+            v-if="userRole === 'writer'"
           >
             <strong>Create post</strong>
           </b-button>
-          <b-button disabled class="button" v-if="user === 'user'"
+          <b-button disabled class="button" v-if="!userRole"
             tag="router-link"
-            :to="{ path: '/login' }">
+            :to="{ path: '/sign-up' }">
             <strong>Sign up</strong>
           </b-button>
           <b-button
-            v-if="user === 'user'"
+            v-if="!userRole"
             tag="router-link"
             :to="{ path: '/login' }"
             class="button is-success"
             >Log in</b-button
           >
           <b-button
-            v-if="user !== 'user'"
-            tag="router-link"
-            :to="{ path: '/logout' }"
+            v-if="userRole"
+            @click.prevent="logout"
+            tag="button"
+            type="button"
             class="button is-danger"
             >Log out</b-button
           >
@@ -47,12 +48,18 @@
 </template>
 
 <script>
+import Auth from '@/services/AuthorizationService'
 
 export default {
   name: "Navbar",
     computed: {
-      user () {
-        return this.$store.getters.rightsCheck
+      userRole () {
+        return this.$store.getters.getRights
+      }
+    },
+    methods: {
+      logout() {
+        Auth.logout()
       }
     }
 };

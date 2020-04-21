@@ -11,8 +11,9 @@ export default new Vuex.Store({
     },
     posts: [],
   },
+
   mutations: {
-    setRole(state, newRole) {
+    writeRole(state, newRole) {
       state.user.role = newRole;
     },
     setPosts(state, posts) {
@@ -21,29 +22,37 @@ export default new Vuex.Store({
     setClaps(state, claps) {
       state.posts[claps.id] = claps.claps;
     },
-    incrementClaps(state, clap) {
-      state.posts[clap] += 1;
+    incrementClaps(state, id) {
+      state.posts[id - 1].claps += 1;
+    },
+    deletePost(state, id) {
+      console.log(state.posts)
+      confirm('Are you shure?') ? state.posts = state.posts.filter(post => post.id !== id) : null
     },
   },
+
   actions: {
     getPosts(context) {
       API.getPosts().then((posts) => {
         return context.commit("setPosts", posts)
       });
     },
+    setRole(context, newRole) {
+      context.commit('writeRole', newRole)
+    }
   },
+
   modules: {},
+  
   getters: {
-    postsState(state) {
+    getPostsState(state) {
       return state.posts;
     },
-    rightsCheck(state) {
+    getRights(state) {
       return state.user.role
     },
-    clapsDone(state) {
-      Object.values(state.posts).forEach((element) => {
-        return element;
-      });
+    getClaps: state => id => {
+      return state.posts.find(post => post.id === id)
     },
   },
 });
