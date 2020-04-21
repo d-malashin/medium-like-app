@@ -20,20 +20,19 @@ export default new Vuex.Store({
       state.posts = posts;
       state.posts.sort((post1, post2) => {
         if (post1.createdAt < post2.createdAt) {
-          return 1
-        } 
-        return -1
+          return 1;
+        }
+        return -1;
       });
     },
-    setClaps(state, claps) {
-      state.posts[claps.id] = claps.claps;
-    },
     incrementClaps(state, id) {
-      state.posts[id - 1].claps += 1;
+      state.posts.forEach((post) => {
+        post.id === id ? post.claps +=1 : null
+      });
     },
     publishPost(state, content) {
       if (content.id) {
-        const humanReadablePostId = parseInt(content.id) + 1;
+        const humanReadablePostId = parseInt(content.id);
         state.posts.forEach((el) => {
           if (el.id === humanReadablePostId) {
             el.title = content.title;
@@ -41,7 +40,7 @@ export default new Vuex.Store({
           }
         });
       } else {
-        state.posts.splice(0,0,{
+        state.posts.splice(0, 0, {
           id: content.id ? content.id : Math.random() * 10,
           title: content.title,
           description: content.description,
