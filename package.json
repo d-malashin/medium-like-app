@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "concurrently --kill-others \"json-server-auth ./src/store/db.json\"  \"vue-cli-service serve\"",
+    "serve": "concurrently --kill-others \"json-server ./src/store/db.json\"  \"vue-cli-service serve\"",
     "watch": "json-server-auth ./src/store/db.json",
     "build": "vue-cli-service build"
   },

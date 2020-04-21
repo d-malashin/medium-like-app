@@ -5,23 +5,18 @@ class API {
     return axios
       .get(`http://localhost:3000/posts`)
       .then(response => {
-      //   // let posts = [];
-      //   // let currentTotal = data.length;
-      //   // // let postsOnPage = 10;
-      //   // // if (data.length / this.perPage > postsOnPage) {
-      //   // //   currentTotal = this.perPage * postsOnPage;
-      //   // // }
-      //   // // this.total = currentTotal;
-      //   // data.forEach((post) => {
-      //   //   posts.push(post);
-      //   //   //   this.$store.commit("setClaps", { claps: post.claps, id: post.id });
-      //   // });
         return response.data
       })
       .catch((error) => {
         posts = [];
         throw error;
       });
+  }
+
+  getUser (email) {
+    return axios.get(`http://localhost:3000/users?email=${email}`)
+      .then(response => response.data.length > 0 ? response.data.find(user => user) : alert('User not found'))
+      .catch( error => {throw error})
   }
 }
 
