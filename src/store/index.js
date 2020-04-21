@@ -18,6 +18,9 @@ export default new Vuex.Store({
     },
     setPosts(state, posts) {
       state.posts = posts;
+      state.posts.sort((post1, post2) => {
+        console.log(post1, post2)
+        post1.createdAt - post2.createdAt});
     },
     setClaps(state, claps) {
       state.posts[claps.id] = claps.claps;
@@ -26,38 +29,52 @@ export default new Vuex.Store({
       state.posts[id - 1].claps += 1;
     },
     publishPost(state, content) {
-      state.posts.push({
-        id: Math.random() * 10,
-        title: content.title, 
-        description: content.description})
+      if (content.id) {
+        const humanReadablePostId = parseInt(content.id) + 1;
+        state.posts.forEach((el) => {
+          if (el.id === humanReadablePostId) {
+            el.title = content.title;
+            el.description = content.description;
+          }
+        });
+      } else {
+        state.posts.push({
+          id: content.id ? content.id : Math.random() * 10,
+          title: content.title,
+          description: content.description,
+          createdAt: new Date().toUTCString(),
+        });
+      }
     },
     deletePost(state, id) {
-      confirm('Are you shure?') ? state.posts = state.posts.filter(post => post.id !== id) : null
+      confirm("Are you shure?")
+        ? (state.posts = state.posts.filter((post) => post.id !== id))
+        : null;
     },
   },
 
   actions: {
     getPosts(context) {
       API.getPosts().then((posts) => {
-        return context.commit("setPosts", posts)
-      })
+        return context.commit("setPosts", posts);
+      });
     },
     setRole(context, newRole) {
-      context.commit('writeRole', newRole)
-    }
+      context.commit("writeRole", newRole);
+    },
   },
 
   modules: {},
-  
+
   getters: {
     getPostsState(state) {
       return state.posts;
     },
     getRights(state) {
-      return state.user.role
+      return state.user.role;
     },
-    getClaps: state => id => {
-      return state.posts.find(post => post.id === id)
+    getClaps: (state) => (id) => {
+      return state.posts.find((post) => post.id === id);
     },
   },
 });

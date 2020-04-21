@@ -22,17 +22,25 @@
 export default {
   data() {
     return {
-      heading: '',
-      text: '',
+      heading: "",
+      text: "",
       labelPosition: "on-border"
     };
   },
   methods: {
     publishPost() {
       const title = this.heading,
-            description = this.text
-      this.$store.commit('publishPost', { title, description })
-      this.$router.push('/')
+        description = this.text,
+        id = this.$route.query.key;
+      this.$store.commit("publishPost", { title, description, id });
+      this.$router.push("/");
+    }
+  },
+  mounted() {
+      let state = this.$store.getters.getPostsState;
+      if (state[this.$route.query.key].title) {
+      this.heading = state[this.$route.query.key].title;
+      this.text = state[this.$route.query.key].description;
     }
   }
 };
@@ -40,7 +48,7 @@ export default {
 
 
 <style scoped>
-  section {
-    margin-top: 2rem;
-  }
+section {
+  margin-top: 2rem;
+}
 </style>
