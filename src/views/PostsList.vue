@@ -1,4 +1,5 @@
 <template>
+<transition name="component-fade" mode="out-in">
   <section>
     <div class="columns is-mobile is-centered">
       <div class="column is-half">
@@ -27,6 +28,7 @@
       </div>
     </div>
   </section>
+</transition>
 </template>
 
 <script>

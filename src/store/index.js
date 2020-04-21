@@ -19,8 +19,11 @@ export default new Vuex.Store({
     setPosts(state, posts) {
       state.posts = posts;
       state.posts.sort((post1, post2) => {
-        console.log(post1, post2)
-        post1.createdAt - post2.createdAt});
+        if (post1.createdAt < post2.createdAt) {
+          return 1
+        } 
+        return -1
+      });
     },
     setClaps(state, claps) {
       state.posts[claps.id] = claps.claps;
@@ -38,7 +41,7 @@ export default new Vuex.Store({
           }
         });
       } else {
-        state.posts.push({
+        state.posts.splice(0,0,{
           id: content.id ? content.id : Math.random() * 10,
           title: content.title,
           description: content.description,
