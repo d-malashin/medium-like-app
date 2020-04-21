@@ -48,6 +48,7 @@ class Authorization {
   logout() {
     store.commit('writeRole', '')
     window.localStorage.setItem('role', 'user')
+    router.push('/?sign-out')
   }
 }
 

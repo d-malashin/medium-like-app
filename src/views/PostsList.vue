@@ -21,7 +21,7 @@
         >
           <template slot-scope="props">
             <b-table-column field="cards">
-              <Card :data="props.row" id:="this.data.id"/>
+              <Card :data="props.row"/>
             </b-table-column>
           </template>
         </b-table>

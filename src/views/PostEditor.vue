@@ -1,23 +1,23 @@
 <template>
-<transition appear>
-  <section class="section-padding-medium">
-    <div class="columns is-mobile is-centered">
-      <div class="column is-half">
-        <b-field label="Heading" :label-position="labelPosition">
-          <b-input placeholder="Write a heading" v-model="heading"></b-input>
-        </b-field>
+  <transition appear>
+    <section class="section-padding-medium">
+      <div class="columns is-mobile is-centered">
+        <div class="column is-half">
+          <b-field label="Heading" :label-position="labelPosition">
+            <b-input placeholder="Write a heading" v-model="heading"></b-input>
+          </b-field>
 
-        <b-field label="Text" :label-position="labelPosition">
-          <b-input maxlength="4000" type="textarea" rows="20" v-model="text"></b-input>
-        </b-field>
+          <b-field label="Text" :label-position="labelPosition">
+            <b-input maxlength="4000" type="textarea" rows="20" v-model="text"></b-input>
+          </b-field>
 
-        <hr />
+          <hr />
 
-        <b-button class="button is-primary" @click.prevent="publishPost">Publish</b-button>
+          <b-button class="button is-primary" @click.prevent="publishPost">Publish</b-button>
+        </div>
       </div>
-    </div>
-  </section>
-</transition>
+    </section>
+  </transition>
 </template>
 
 <script>
@@ -41,8 +41,13 @@ export default {
   mounted() {
     if (this.$route.query.key) {
       let state = this.$store.getters.getPostsState;
-      this.heading = state[this.$route.query.key].title;
-      this.text = state[this.$route.query.key].description;
+      let id = this.$route.query.key;
+      state.forEach(element => {
+        if (element.id === parseInt(id)) {
+          this.heading = element.title;
+          this.text = element.description;
+        }
+      });
     }
   }
 };

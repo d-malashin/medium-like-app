@@ -26,10 +26,10 @@
       <b-button
         v-if="rightsCheck === 'writer'"
         tag="router-link"
-        :to="{ path: `/post-editor?key=${this.data.id - 1}` }"
+        :to="{ path: `/post-editor?key=${this.data.id}` }"
         class="card-footer-item"
         is-clipped
-      >Edit</b-button>
+      >Edit {{id}}</b-button>
       <b-button
         v-if="rightsCheck === 'writer'"
         @click.prevent="deletePost"
