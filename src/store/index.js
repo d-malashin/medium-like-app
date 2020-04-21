@@ -25,8 +25,13 @@ export default new Vuex.Store({
     incrementClaps(state, id) {
       state.posts[id - 1].claps += 1;
     },
+    publishPost(state, content) {
+      state.posts.push({
+        id: Math.random() * 10,
+        title: content.title, 
+        description: content.description})
+    },
     deletePost(state, id) {
-      console.log(state.posts)
       confirm('Are you shure?') ? state.posts = state.posts.filter(post => post.id !== id) : null
     },
   },
@@ -35,7 +40,7 @@ export default new Vuex.Store({
     getPosts(context) {
       API.getPosts().then((posts) => {
         return context.commit("setPosts", posts)
-      });
+      })
     },
     setRole(context, newRole) {
       context.commit('writeRole', newRole)
