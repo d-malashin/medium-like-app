@@ -14,7 +14,8 @@
       </div>
     </div>
     <footer class="card-footer">
-      <span class="card-footer-item">{{clapsCounter}}</span>
+      <span v-if="clapsCounter" class="card-footer-item">{{clapsCounter}}</span>
+      <span v-else="" class="card-footer-item"></span>
       <b-button
         v-if="rightsCheck === 'reader'"
         tag="button"
