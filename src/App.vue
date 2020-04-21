@@ -1,7 +1,9 @@
 <template>
   <div>
     <Navbar />
+    <transition appear name="fade" :duration="200" mode="in-out">
     <router-view />
+    </transition>
   </div>
 </template>
 

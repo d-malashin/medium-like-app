@@ -1,4 +1,5 @@
 <template>
+<transition appear>
   <section class="section-padding-medium">
     <div class="columns is-mobile is-centered">
       <div class="column is-half">
@@ -16,6 +17,7 @@
       </div>
     </div>
   </section>
+</transition>
 </template>
 
 <script>
@@ -37,8 +39,8 @@ export default {
     }
   },
   mounted() {
+    if (this.$route.query.key) {
       let state = this.$store.getters.getPostsState;
-      if (state[this.$route.query.key].title) {
       this.heading = state[this.$route.query.key].title;
       this.text = state[this.$route.query.key].description;
     }
