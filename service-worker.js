@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/medium-like-app/precache-manifest.741c9632ed196b4b6e911418934d81d4.js"
+  "/medium-like-app/precache-manifest.4fdcbfb03179a68d34c7ca2a4bf20dfb.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "medium-like-app"});
