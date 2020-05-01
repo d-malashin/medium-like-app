@@ -32,9 +32,8 @@ export default new Vuex.Store({
     },
     publishPost(state, content) {
       if (content.id) {
-        const humanReadablePostId = parseInt(content.id);
         state.posts.forEach((post) => {
-          if (post.id === humanReadablePostId) {
+          if (post.id === content.id) {
             post.title = content.title;
             post.description = content.description
             post.claps = 0;
@@ -42,7 +41,7 @@ export default new Vuex.Store({
         });
       } else {
         state.posts.splice(0, 0, {
-          id: content.id ? content.id : Math.random() * 10,
+          id: content.id !==undefined ? content.id : Math.random() * 10,
           title: content.title,
           description: content.description,
           claps: 0,

@@ -34,16 +34,18 @@ export default {
       const title = this.heading,
         description = this.text,
         id = this.$route.query.key;
+        console.log(id)
       this.$store.commit("publishPost", { title, description, id });
       this.$router.push("/");
     }
   },
   mounted() {
     if (this.$route.query.key) {
-      let state = this.$store.getters.getPostsState;
-      let id = this.$route.query.key;
-      state.forEach(element => {
-        if (element.id === parseInt(id)) {
+      let postsState = this.$store.getters.getPostsState;
+      let id = parseFloat(this.$route.query.key);
+      postsState.forEach(element => {
+        if (element.id === id) {
+          
           this.heading = element.title;
           this.text = element.description;
         }
